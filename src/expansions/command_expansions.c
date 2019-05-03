@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansions2.c                                      :+:      :+:    :+:   */
+/*   command_expansions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emartine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -59,6 +59,20 @@ int		assign_expansions(t_lexer_token *cmd)
 	return (0);
 }
 
+int		isvarstr(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!isvarchar(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int		isvarchar(uint8_t ch)
 {
 	return (ch == '_'
@@ -71,4 +85,9 @@ int		iswordchar(uint8_t ch)
 {
 	return (ch != ' ' && ch != '\t' && ch != '\n'
 			&& ch != '\\' && ch != '\'' && ch != '\"');
+}
+
+int		isvalsep(uint8_t ch)
+{
+	return (ch == '=' || ch == '+' || ch == '=' || ch == '?');
 }

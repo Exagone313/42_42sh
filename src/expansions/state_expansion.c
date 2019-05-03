@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansions3.c                                      :+:      :+:    :+:   */
+/*   state_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emartine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -26,7 +26,8 @@ static int		not_quoted(t_lexer_token *tok)
 		if ((k == 0 || (tok->assign_position > 0 && k == tok->assign_position
 						+ 1)) && tok->buffer[k] == '~')
 			k += tilde_expand(tok, j, k);
-		var_expand(tok, j, k);
+		if (var_expand(tok, j, k) < 0)
+			return (-1);
 		tok->exp_i = j;
 	}
 	if (tok->exp_i < tok->size)

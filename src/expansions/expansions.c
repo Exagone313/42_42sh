@@ -19,7 +19,10 @@ int				command_expansions(t_lexer_token *cmd)
 	if (arg_expansions(cmd) < 0
 			|| redir_expansions(cmd) < 0
 			|| assign_expansions(cmd) < 0)
+	{
+		g_shell.exit_code = 1;
 		return (-1);
+	}
 	return (0);
 }
 
@@ -27,6 +30,12 @@ int				buffer_append(t_lexer_token *tok, uint8_t *buffer, size_t size)
 {
 	uint8_t	*r;
 
+	if (buffer == NULL)
+	{
+		if (NULL == (buffer = malloc(1)))
+			return (-1);
+		buffer[0] = '\0';
+	}
 	if (NULL == (r = malloc((tok->exp_buffer ? tok->exp_size : 0) + size + 1)))
 		return (-1);
 	if (tok->exp_buffer)

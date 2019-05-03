@@ -126,9 +126,10 @@ SRC := \
 	parser/parser_printer.c \
 	parser/is.c \
 	expansions/expansions.c \
-	expansions/expansions2.c \
-	expansions/expansions3.c \
-	expansions/expansions4.c \
+	expansions/command_expansions.c \
+	expansions/state_expansion.c \
+	expansions/param_expansion.c \
+	expansions/tilde_expansion.c \
 	random/file.c
 
 CFLAGS ?=

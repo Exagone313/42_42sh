@@ -92,6 +92,7 @@ struct							s_lexer_token
 	size_t						exp_i;
 	uint8_t						*exp_buffer;
 	size_t						exp_size;
+	int							exp_error;
 };
 
 # define EXPANSION_STACK_MAX 128
