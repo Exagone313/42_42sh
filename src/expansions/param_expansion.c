@@ -110,9 +110,7 @@ static int		split_key(t_lexer_token *tok, char *key, size_t start)
 		return (-1);
 		//return (format_error(key)); //TODO comment gerer l'erreur des expansions
 	if (key[start] == ':' && isvalsep(key[start + 1]))
-	{
 		return (substitute_param(tok, key, start, subtype(key, start)));
-	}
 	return (0);
 }
 
@@ -134,6 +132,7 @@ static int		key_format(t_lexer_token *tok, char *key, int brace)
 {
 	char	*val;
 	size_t	i;
+	size_t	len;
 
 	val = NULL;
 	i = 0;
@@ -141,8 +140,20 @@ static int		key_format(t_lexer_token *tok, char *key, int brace)
 		val = get_env_val(g_shell.envl, key);
 	else
 	{
-		if (key[0] == '#' && isvarstr(key + 1))
-			return (sub_string_len(tok, key));
+		if (!ft_strchr(key, ':'))
+		{
+			if (key[0] == '#' && isvarstr(key + 1))
+				return (sub_string_len(tok, key));
+			else
+			{
+				while (isvarchar(key[i]))
+					i++;
+				len = ft_strlen(key);
+				if (len - i > 2)
+					return (-1); //print format error
+				return (0); //ajouter pattern sub
+			}
+		}
 		else
 		{
 			while (isvarchar(key[i]))
