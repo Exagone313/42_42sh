@@ -89,5 +89,5 @@ int		iswordchar(uint8_t ch)
 
 int		isvalsep(uint8_t ch)
 {
-	return (ch == '=' || ch == '+' || ch == '=' || ch == '?');
+	return (ch == '-' || ch == '+' || ch == '=' || ch == '?');
 }
